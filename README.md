@@ -19,11 +19,18 @@ The instructiosn below will walk through setting up the scripts to run.
 2. Clone this repository to your local machine.  Alternatively, use Github's Download ZIP option and unpack the zip folder.
 3. Open a terminal window and navigate to your project directory.
 4. Run the command
-        pip install -r requirements.txt
+```
+    pip install -r requirements.txt
+```
 5. Open get_data.py using any editor.  Set your miner address on line 14
-        miner = 'your Ergo address here'
+```
+    miner = 'your Ergo address here'
+```
 6. That's it!  You can now run get_data.py to collect data and show_data to view an earnings over time chart.
-        python get_data.py
-        python show_data.py
-
+```
+    python get_data.py
+```
+```
+    python show_data.py
+```
 ## Run on a Schedule
