@@ -8,6 +8,7 @@ import pyarrow.parquet as pq
 from pyarrow import Table as patb
 import pandas as pd
 import requests
+import os
 
 #  set configuration
 #  Set your miner address here.
@@ -16,7 +17,8 @@ base_url = 'https://api-ergo.flypool.org/'
 rounds_url = f'{base_url}miner/{miner}/rounds'
 blocks_url = f'{base_url}blocks'
 data_directory = 'data/'
-
+rounds_directory = f'{data_directory}rounds/'
+blocks_directory = f'{data_directory}blocks/'
 
 # set datetime for filename
 d1 = datetime.now().strftime("%Y-%m-%d-%H-%M")
@@ -38,7 +40,15 @@ rounds = pd.DataFrame(get_rounds(miner)['data'])
 # call get_blocks and convert json data to dataframe
 blocks = pd.DataFrame(get_blocks()['data'])
 
+# check if directories exist and create them if not
+
+if not os.path.exists(rounds_directory):
+    os.makedirs(rounds_directory)
+
+if not os.path.exists(blocks_directory):
+    os.makedirs(blocks_directory)
+
 # write dataframes as parquet files in repsective directories
-pq.write_table(patb.from_pandas(rounds),f'{data_directory}rounds/{d1}.parquet')
-pq.write_table(patb.from_pandas(blocks),f'{data_directory}blocks/{d1}.parquet')
+pq.write_table(patb.from_pandas(rounds),f'{rounds_directory}{d1}.parquet')
+pq.write_table(patb.from_pandas(blocks),f'{blocks_directory}{d1}.parquet')
 
